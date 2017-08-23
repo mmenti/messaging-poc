@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: getmessage
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: getmessage-pods
+    spec:
+      containers:
+      - image: gcr.io/airy-cortex-166611/getmessage:0.5
+        name: getmessage-container
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http-server
+        env:
+        - name: SENDGRID_KEY
+          valueFrom:
+           secretKeyRef:
+            name: sendgrid-key
+            key: sendgridkey
+
+
+

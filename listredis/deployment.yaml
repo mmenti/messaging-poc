@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: listredis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: listredis-pods
+    spec:
+      containers:
+      - image: gcr.io/airy-cortex-166611/listredis:0.4
+        name: listredis-container
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http-server
+
+
+

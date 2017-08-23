@@ -1,0 +1,18 @@
+<h1>Messaging POC:</h1>
+- send a message using the below form (this form does what the mobile app would do, it sends a message to the "sendmessage" microservice with the user ID of the current user, the GP's email address, and the message to be sent). For testing, use your own email address as the GP email address<br/><br/>
+- when submitted, you should receive an email at the specified address, coming from [userid]@sendgrid.mariomenti.com<br/><br/>
+- reply to that email<br/><br/>
+- the reply will be sent to the "getmessage" endpoint, where it's being processed (e.g. remove quoted replies etc.), and then saved to Redis<br/><br/>
+- the received reply can be retrieved from Redis via the URL /listredis?userid=[userid]", where userid is whatever you entered in the form below (in reality, this will be retrieved by the mobile app and displayed there). As an example, <a href="http://35.189.97.237/listredis?userid=mariotest1" target="_blank">http://35.189.97.237/listredis?userid=mariotest1</a> - but to see your GP reply, replace mariotest1 with your user id. Only the most recent reply is currently stored in Redis (as it's a POC, for the real thing we almost certainly won't want to use Redis). This may take a few minutes depending on how it takes for the email to arrive, if you see a message "userid not found" just wait a bit and try again)<br/><br/>
+<br/>
+
+
+<form action="/sendmessage" method="post" target="formoutput">
+	GP email address: <input type="text" id="address" name="address" /><br/>
+	Message to send: <input type="text" id="message" name="message" /><br/>
+	User ID: <input type="text" id="userid" name="userid" /><br/>
+	Message Type: <input type="text" id="msgtype" name="msgtype" value="email" /><br/>
+<input type="submit" value="Send Message">
+</form>
+<br/>
+<iframe name="formoutput"></iframe>
