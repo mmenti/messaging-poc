@@ -10,7 +10,7 @@ spec:
         name: nginx-pods
     spec:
       containers:
-      - image: gcr.io/airy-cortex-166611/nginx:0.9
+      - image: gcr.io/airy-cortex-166611/nginx:0.10
         name: nginx-container
         imagePullPolicy: Always
         ports:

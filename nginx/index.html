@@ -10,11 +10,11 @@
 <h1>Messaging POC:</h1>
 <p>
 <ul>
-<li>send a message using the below form (this form does what the mobile app would do, it sends a message to the "sendmessage" microservice with the user ID of the current user, the GP's email address, and the message to be sent). For testing, use your own email address as the GP email address</li>
-<li>when submitted, you should receive an email at the specified address, coming from [userid]@sendgrid.mariomenti.com<br/</li>
+<li>send a message using the below form (this form does what the mobile app would do, it sends a message to the "sendmessage" microservice/endpoint with the user ID of the current user, the GP's email address, and the message to be sent). For testing, use your own email address as the GP email address, and use any string as User ID</li>
+<li>when submitted, you should receive an email at the specified address, coming from [userid]@sendgrid.mariomenti.com (this is a domain I've set up to with the Sendgrid API and incoming email gateway)</li>
 <li>reply to that email</li>
-<li>the reply will be sent to the "getmessage" endpoint, where it's being processed (e.g. remove quoted replies etc.), and then saved to Redis</li>
-<li>the received reply can be retrieved from Redis via the URL /listredis?userid=[userid]", where userid is whatever you entered in the form below (in reality, this will be retrieved by the mobile app and displayed there). As an example, <a href="http://35.189.97.237/listredis?userid=mariotest1" target="_blank">http://35.189.97.237/listredis?userid=mariotest1</a> - but to see your GP reply, replace mariotest1 with your user id. Only the most recent reply for each user ID is currently stored in Redis (as it's a POC, for the real thing we almost certainly won't want to use Redis). This may take a few minutes depending on how long it takes for the email to arrive, if you see a message "userid not found" just wait a bit and try again)</li>
+<li>the reply will be forwarded to the "getmessage" endpoint/microservice, where it's being processed (e.g. remove quoted replies etc.), and then saved to a Redis database</li>
+<li>the saved replies can be retrieved from Redis via the "listredis" endpoint, at the URL "/listredis?userid=[userid]", where [userid] is whatever you entered in the form below (in a real implementation, this will be retrieved by the mobile app - or pushed to the mobile app - and displayed within the app).<br/>As an example, this link shows the reply to user "mariotest1": <a href="http://35.189.97.237/listredis?userid=mariotest1" target="_blank">http://35.189.97.237/listredis?userid=mariotest1</a> - but to see your own GP reply, replace mariotest1 with your user id. Only the most recent reply for each user ID is currently stored in Redis (should be ok for a POC, for the real thing we may want to use something more complex than Redis). It may take a few minutes for the reply to appear in Redis, depending on how long it takes for the email to arrive, if you see a message "Couldn't find userid" just wait a bit and try again)</li>
 </ul>
 </p>
 <p>
